@@ -23,12 +23,54 @@ public class AVLTree<E extends Comparable<? super E>> {
     }
 
     public E deleteMin() {
-        // TODO: Write some good stuff here
+        E min = findMin(root).value;
+        remove(min, root);
+        return min;
+    }
 
-        // Note: I only put this code here to have it compile.
-        // This will NOT work if root is null.  You should return
-        // the actual min value found.
-        return root.value;
+    /**
+     * Internal method to find the smallest item in a subtree.
+     * @param t the node that roots the subtree.
+     * @return node containing the smallest item.
+     */
+    private AvlNode findMin( AvlNode t )
+    {
+        if( t == null ) {
+            return null;
+        }
+        else if( t.left == null ) {
+            return t;
+        }
+        return findMin( t.left );
+    }
+
+    /**
+     * Internal method to remove from a subtree.
+     * @param x the item to remove.
+     * @param t the node that roots the subtree.
+     * @return the new root of the subtree.
+     */
+    private AvlNode remove(E x, AvlNode t ) {
+        if( t == null ) {
+            return t;       // Item not found; do nothing
+        }
+
+        int compareResult = x.compareTo( t.value );
+
+        if( compareResult < 0 ) {
+            t.left = remove(x, t.left);
+        }
+        else if( compareResult > 0 ) {
+            t.right = remove(x, t.right);
+        }
+        else if( t.left != null && t.right != null ) {  // Two children
+            t.value = findMin( t.right ).value;
+            t.right = remove( t.value, t.right );
+        }
+        else {
+            t = (t.left != null) ? t.left : t.right;
+        }
+        return  balance( t );
     }
 
     /**
