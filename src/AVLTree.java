@@ -24,7 +24,7 @@ public class AVLTree<E extends Comparable<? super E>> {
 
     public E deleteMin() {
         E min = findMin(root).value;
-        remove(min, root);
+        root = remove(min, root);
         return min;
     }
 
