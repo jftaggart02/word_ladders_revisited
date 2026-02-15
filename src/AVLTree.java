@@ -29,51 +29,6 @@ public class AVLTree<E extends Comparable<? super E>> {
     }
 
     /**
-     * Internal method to find the smallest item in a subtree.
-     * @param t the node that roots the subtree.
-     * @return node containing the smallest item.
-     */
-    private AvlNode findMin( AvlNode t )
-    {
-        if( t == null ) {
-            return null;
-        }
-        else if( t.left == null ) {
-            return t;
-        }
-        return findMin( t.left );
-    }
-
-    /**
-     * Internal method to remove from a subtree.
-     * @param x the item to remove.
-     * @param t the node that roots the subtree.
-     * @return the new root of the subtree.
-     */
-    private AvlNode remove(E x, AvlNode t ) {
-        if( t == null ) {
-            return t;       // Item not found; do nothing
-        }
-
-        int compareResult = x.compareTo( t.value );
-
-        if( compareResult < 0 ) {
-            t.left = remove(x, t.left);
-        }
-        else if( compareResult > 0 ) {
-            t.right = remove(x, t.right);
-        }
-        else if( t.left != null && t.right != null ) {  // Two children
-            t.value = findMin( t.right ).value;
-            t.right = remove( t.value, t.right );
-        }
-        else {
-            t = (t.left != null) ? t.left : t.right;
-        }
-        return  balance( t );
-    }
-
-    /**
      * Find the largest item in the tree.
      *
      * @return the largest item of null if empty.
@@ -277,6 +232,51 @@ public class AVLTree<E extends Comparable<? super E>> {
     private AvlNode doubleLeftRotation(AvlNode node) {
         node.right = rightRotation(node.right);
         return leftRotation(node);
+    }
+
+    /**
+     * Internal method to find the smallest item in a subtree.
+     * @param t the node that roots the subtree.
+     * @return node containing the smallest item.
+     */
+    private AvlNode findMin( AvlNode t )
+    {
+        if( t == null ) {
+            return null;
+        }
+        else if( t.left == null ) {
+            return t;
+        }
+        return findMin( t.left );
+    }
+
+    /**
+     * Internal method to remove from a subtree.
+     * @param x the item to remove.
+     * @param t the node that roots the subtree.
+     * @return the new root of the subtree.
+     */
+    private AvlNode remove(E x, AvlNode t ) {
+        if( t == null ) {
+            return t;       // Item not found; do nothing
+        }
+
+        int compareResult = x.compareTo( t.value );
+
+        if( compareResult < 0 ) {
+            t.left = remove(x, t.left);
+        }
+        else if( compareResult > 0 ) {
+            t.right = remove(x, t.right);
+        }
+        else if( t.left != null && t.right != null ) {  // Two children
+            t.value = findMin( t.right ).value;
+            t.right = remove( t.value, t.right );
+        }
+        else {
+            t = (t.left != null) ? t.left : t.right;
+        }
+        return  balance( t );
     }
 
     private class AvlNode {
