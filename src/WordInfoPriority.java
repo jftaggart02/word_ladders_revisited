@@ -14,7 +14,10 @@ public class WordInfoPriority extends WordInfo implements Comparable<WordInfoPri
 
     @Override
     public int compareTo(WordInfoPriority w) {
-        return Integer.compare(this.getPriority(), w.getPriority());
+        int res = Integer.compare(this.getPriority(), w.getPriority());
+        if (res != 0) return res;
+        // Tie-breaker: compare the words alphabetically
+        return this.getWord().compareTo(w.getWord());
     }
 
     @Override

@@ -37,14 +37,14 @@ public class LadderGamePriority extends LadderGame {
         priorityQueue.insert(new WordInfoPriority(start, 0, diff(start, end)));
         previousWords.insert(new PreviousWord(start, 0));
         totalEnqueues++;
-        printState(previousWords, priorityQueue);
+//        printState(previousWords, priorityQueue);
 
         // Main Loop
-        var scanner = new Scanner(System.in);
+//        var scanner = new Scanner(System.in);
         while (!priorityQueue.isEmpty()) {
             WordInfoPriority currentBest = priorityQueue.deleteMin();
             assert !priorityQueue.contains(currentBest);
-            System.out.println("Current best is: " + currentBest);
+//            System.out.println("Current best is: " + currentBest);
 
             // Add to the priority queue all neighboring states; those that can be reached in one more move
             ArrayList<String> oneAwayWords = oneAway(currentBest.getWord(), false);
@@ -59,11 +59,11 @@ public class LadderGamePriority extends LadderGame {
                 else {
 
                     try {
-                        System.out.println("Finding " + word);
+//                        System.out.println("Finding " + word);
                         PreviousWord wordFound = previousWords.find(new PreviousWord(word, 0));
-                        System.out.println("Found in previous moves: " + wordFound);
+//                        System.out.println("Found in previous moves: " + wordFound);
                         if (currentMoves < wordFound.moves) {
-                            System.out.println("Found shorter path to " + word + ". Adding to queue.");
+//                            System.out.println("Found shorter path to " + word + ". Adding to queue.");
                             wordFound.moves = currentMoves;
                             priorityQueue.insert(new WordInfoPriority(word, currentMoves, diff(word, end), currentBest.getHistory() + " " + word));
                             totalEnqueues++;
@@ -72,7 +72,7 @@ public class LadderGamePriority extends LadderGame {
                     }
                     // Previous word not found
                     catch (RuntimeException ex) {
-                        System.out.println("Not found in previous moves: " + word + ". Adding to queue.");
+//                        System.out.println("Not found in previous moves: " + word + ". Adding to queue.");
                         priorityQueue.insert(new WordInfoPriority(word, currentMoves, diff(word, end), currentBest.getHistory() + " " + word));
                         previousWords.insert(new PreviousWord(word, currentMoves));
                         totalEnqueues++;
@@ -83,8 +83,8 @@ public class LadderGamePriority extends LadderGame {
 
             }
 
-            printState(previousWords, priorityQueue);
-            scanner.nextLine();
+//            printState(previousWords, priorityQueue);
+//            scanner.nextLine();
 
 
         }
