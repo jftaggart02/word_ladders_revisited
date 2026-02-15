@@ -27,6 +27,7 @@ public class LadderGameExhaustive extends LadderGame {
         // Convert to lower case
         start = start.toLowerCase();
         end = end.toLowerCase();
+        System.out.println("Seeking exhaustive solution from " + start + " -> " + end);
 
         // Ensure start and end words are the same length
         if (start.length() != end.length()) {
@@ -35,7 +36,7 @@ public class LadderGameExhaustive extends LadderGame {
 
         // Special case: Start and end are the same
         if (start.equals(end)) {
-            System.out.println(start + " -> " + end + " : 0 Moves [" + start + "] total enqueues 0");
+            System.out.println(" [" + start + " " + end + "] total enqueues 0");
             return;
         }
 
@@ -72,7 +73,7 @@ public class LadderGameExhaustive extends LadderGame {
             for (String w: oneAwayWords) {
                 // If the word is equal to the end word, then the word ladder is complete
                 if (w.equals(end)) {
-                    System.out.println(start + " -> " + end + " : " + (moves + 1) + " Moves [" + currentShortest.getHistory() + " " + w + "] total enqueues " + totalEnqueues);
+                    System.out.println(" [" + currentShortest.getHistory() + " " + w + "] total enqueues " + totalEnqueues);
                     return;
                 }
 
@@ -84,7 +85,7 @@ public class LadderGameExhaustive extends LadderGame {
 
             }
         }
-        System.out.println(start + " -> " + end + " : No ladder was found");
+        System.out.println(" No ladder was found.");
 
     }
 
