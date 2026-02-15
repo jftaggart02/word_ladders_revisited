@@ -7,20 +7,14 @@ public class LadderGameExhaustive extends LadderGame {
     }
 
     /**
-     * Attempt to find the shortest word ladder from start to end.
-     * Indicate if no word ladder through the dictionary can be found.
-     * Throw an error if start and end are different lengths or if either are not in the dictionary.
+     * Attempt to find the shortest word ladder from start to end using an exhaustive search.
      * */
     @Override
     public void play(String start, String end) throws IllegalArgumentException {
 
         start = start.toLowerCase();
         end = end.toLowerCase();
-
-        // Create new dictionary copy and reset total enqueues counter
         reset();
-
-        // Ensure start and end are in dictionary and the same length
         validateInput(start, end);
 
         System.out.println("Seeking exhaustive solution from " + start + " -> " + end);

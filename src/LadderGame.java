@@ -4,6 +4,14 @@ import java.util.Scanner;
 
 public abstract class LadderGame {
 
+    // PUBLIC MEMBERS --------------------------------------------------------------------------------------------------
+
+    /**
+     * Constructor.
+     * Read dictionary stored in .txt file and store in the class.
+     * Create a copy of the dictionary to be used in the ladder game algorithm.
+     * Reset the totalEnqueues counter.
+     * */
     LadderGame(String dictionaryFile) {
         readDictionary(dictionaryFile);
         reset();
@@ -26,6 +34,8 @@ public abstract class LadderGame {
         }
 
     }
+
+    // PROTECTED MEMBERS -----------------------------------------------------------------------------------------------
 
     protected int totalEnqueues;
 
@@ -53,6 +63,9 @@ public abstract class LadderGame {
         return words;
     }
 
+    /**
+     * Reset the copy of the dictionary so the ladder game algorithm can start with a fresh dictionary.
+     * */
     protected void reset() {
         resetDictionaryCopy();
         totalEnqueues = 0;
@@ -82,6 +95,7 @@ public abstract class LadderGame {
 
     /**
      * Assumes start and end are lowercase.
+     * Ensure start and end words are the same length and in the dictionary.
      * */
     protected void validateInput(String start, String end) throws IllegalArgumentException {
 
@@ -96,6 +110,8 @@ public abstract class LadderGame {
             throw new IllegalArgumentException("Start and end words must be in the dictionary.");
         }
     }
+
+    // PRIVATE MEMBERS -------------------------------------------------------------------------------------------------
 
     private ArrayList<ArrayList<String>> dictionary;
     private ArrayList<ArrayList<String>> dictionaryCopy;

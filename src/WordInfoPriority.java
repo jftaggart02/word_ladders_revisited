@@ -2,6 +2,7 @@ public class WordInfoPriority extends WordInfo implements Comparable<WordInfoPri
 
     public WordInfoPriority(String word, int moves, int estimatedWork) {
         super(word, moves);
+        // Priority is equal to current word ladder height + estimated work to get to the goal
         this.priority = estimatedWork + moves;
     }
 

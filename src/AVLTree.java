@@ -75,14 +75,29 @@ public class AVLTree<E extends Comparable<? super E>> {
         printTree(root, 0);
     }
 
+    /**
+     * Remove an item from the tree.
+     *
+     * @param val The item to remove.
+     * */
     public void remove(E val) {
         root = remove(val, root);
     }
 
+    /**
+     * Find an item in the tree.
+     *
+     * @param val The item to find.
+     *
+     * @return The item found.
+     * */
     public E find(E val) throws RuntimeException {
         return find(val, root);
     }
 
+    /**
+     * Internal method to find item in a subtree.
+     * */
     private E find(E value, AvlNode node) throws RuntimeException {
         while (node != null) {
             int compareResult = value.compareTo(node.value);
@@ -99,6 +114,9 @@ public class AVLTree<E extends Comparable<? super E>> {
         throw new RuntimeException("The item does not exist in the tree!");
     }
 
+    /**
+     * Internal method to print the tree.
+     * */
     private void printTree(AvlNode n, int depth) {
         if (n == null) {
             return;

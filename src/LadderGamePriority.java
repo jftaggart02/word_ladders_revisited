@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class LadderGamePriority extends LadderGame {
 
@@ -15,7 +14,6 @@ public class LadderGamePriority extends LadderGame {
 
         start = start.toLowerCase();
         end = end.toLowerCase();
-
         reset();
         validateInput(start, end);
 
@@ -37,20 +35,16 @@ public class LadderGamePriority extends LadderGame {
         priorityQueue.insert(new WordInfoPriority(start, 0, diff(start, end)));
         previousWords.insert(new PreviousWord(start, 0));
         totalEnqueues++;
-//        printState(previousWords, priorityQueue);
 
-        // Main Loop
-//        var scanner = new Scanner(System.in);
         while (!priorityQueue.isEmpty()) {
             WordInfoPriority currentBest = priorityQueue.deleteMin();
-            assert !priorityQueue.contains(currentBest);
-//            System.out.println("Current best is: " + currentBest);
 
             // Add to the priority queue all neighboring states; those that can be reached in one more move
             ArrayList<String> oneAwayWords = oneAway(currentBest.getWord(), false);
             int currentMoves = currentBest.getMoves() + 1;
             for (String word: oneAwayWords) {
 
+                // We found the word
                 if (word.equals(end)) {
                     System.out.println(" [" + currentBest.getHistory() + " " + word + "] total enqueues " + totalEnqueues);
                     return;
@@ -58,34 +52,26 @@ public class LadderGamePriority extends LadderGame {
 
                 else {
 
-                    try {
-//                        System.out.println("Finding " + word);
-                        PreviousWord wordFound = previousWords.find(new PreviousWord(word, 0));
-//                        System.out.println("Found in previous moves: " + wordFound);
+                    // If the word has already been visited, but we found a shorter path to the word, add it to the queue.
+                    PreviousWord finder = new PreviousWord(word, 0);
+                    if (previousWords.contains(finder)) {
+                        PreviousWord wordFound = previousWords.find(finder);
                         if (currentMoves < wordFound.moves) {
-//                            System.out.println("Found shorter path to " + word + ". Adding to queue.");
-                            wordFound.moves = currentMoves;
+                            wordFound.moves = currentMoves;  // Update the fewest number of moves to get to the word.
                             priorityQueue.insert(new WordInfoPriority(word, currentMoves, diff(word, end), currentBest.getHistory() + " " + word));
                             totalEnqueues++;
                         }
-
                     }
-                    // Previous word not found
-                    catch (RuntimeException ex) {
-//                        System.out.println("Not found in previous moves: " + word + ". Adding to queue.");
+                    // If the word hasn't already been visited, add it to the queue.
+                    else {
                         priorityQueue.insert(new WordInfoPriority(word, currentMoves, diff(word, end), currentBest.getHistory() + " " + word));
                         previousWords.insert(new PreviousWord(word, currentMoves));
                         totalEnqueues++;
-
                     }
 
                 }
 
             }
-
-//            printState(previousWords, priorityQueue);
-//            scanner.nextLine();
-
 
         }
 
@@ -94,18 +80,7 @@ public class LadderGamePriority extends LadderGame {
     }
 
     /**
-     * Debug function
-     * */
-    private void printState(AVLTree<PreviousWord> previousWords, AVLTree<WordInfoPriority> priorityQueue) {
-        previousWords.printTree("Previous words:");
-        System.out.println();
-        priorityQueue.printTree("Priority queue:");
-        System.out.println();
-        System.out.println();
-    }
-
-    /**
-     * A wrapper around WordInfo class that implements comparable interface using the word.
+     * A simple class for storing previous words and their word ladder size.
      * */
     private static class PreviousWord implements Comparable<PreviousWord> {
 
@@ -129,4 +104,3 @@ public class LadderGamePriority extends LadderGame {
     }
 
 }
-
