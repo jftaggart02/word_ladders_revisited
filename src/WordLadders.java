@@ -8,10 +8,15 @@ public class WordLadders {
         LadderGame gamePriority = new LadderGamePriority("dictionary.txt");
         LadderGame gameExhaustive = new LadderGameExhaustive("dictionary.txt");
 
-        gameExhaustive.play("kiss", "woof");
-        gamePriority.play("kiss", "woof");
+        gameExhaustive.play("kiss", "wons");
+        gamePriority.play("kiss", "wons");
         System.out.println();
 
+//        gameExhaustive.play("kiss", "woof");
+//        gamePriority.play("kiss", "woof");
+//        System.out.println();
+
+        /*
         gameExhaustive.play("rock", "numb");
         gamePriority.play("rock", "numb");
         System.out.println();
@@ -38,6 +43,8 @@ public class WordLadders {
 
         gameExhaustive.play("stone", "money");
         gamePriority.play("stone", "money");
+        */
+
     }
 
     public static void testAvlTree() {

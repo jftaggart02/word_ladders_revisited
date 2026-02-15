@@ -17,12 +17,15 @@ public class LadderGameExhaustive extends LadderGame {
         start = start.toLowerCase();
         end = end.toLowerCase();
 
+        // Create new dictionary copy and reset total enqueues counter
         reset();
+
+        // Ensure start and end are in dictionary and the same length
         validateInput(start, end);
 
         System.out.println("Seeking exhaustive solution from " + start + " -> " + end);
 
-        // Special case: Start and end are the same
+        // Special case: Start and end are the same. No need to run algorithm.
         if (start.equals(end)) {
             System.out.println(" [" + start + " " + end + "] total enqueues 0");
             return;
