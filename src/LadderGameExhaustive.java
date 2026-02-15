@@ -2,13 +2,13 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class LadderGame {
+public class LadderGameExhaustive {
 
     /**
      * Constructor. Read in the dictionary .txt file and store it as a 2D array.
      * Also create a copy of the dictionary to be searched through and modified during the word ladder algorithm.
      * */
-    public LadderGame(String dictionaryFile) {
+    public LadderGameExhaustive(String dictionaryFile) {
         this.readDictionary(dictionaryFile);
         this.resetDictionaryCopy();
     }
