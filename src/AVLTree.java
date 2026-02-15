@@ -24,7 +24,7 @@ public class AVLTree<E extends Comparable<? super E>> {
 
     public E deleteMin() {
         E min = findMin(root).value;
-        root = remove(min, root);
+        remove(min);
         return min;
     }
 
@@ -73,6 +73,30 @@ public class AVLTree<E extends Comparable<? super E>> {
     public void printTree(String label) {
         System.out.println(label);
         printTree(root, 0);
+    }
+
+    public void remove(E val) {
+        root = remove(val, root);
+    }
+
+    public E find(E val) throws RuntimeException {
+        return find(val, root);
+    }
+
+    private E find(E value, AvlNode node) throws RuntimeException {
+        while (node != null) {
+            int compareResult = value.compareTo(node.value);
+
+            if (compareResult < 0) {
+                node = node.left;
+            } else if (compareResult > 0) {
+                node = node.right;
+            } else {
+                return node.value;    // Match
+            }
+        }
+
+        throw new RuntimeException("The item does not exist in the tree!");
     }
 
     private void printTree(AvlNode n, int depth) {
