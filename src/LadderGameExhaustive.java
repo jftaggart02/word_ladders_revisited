@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-public class LadderGameExhaustive {
+public class LadderGameExhaustive extends LadderGame {
 
     /**
      * Constructor. Read in the dictionary .txt file and store it as a 2D array.
@@ -18,6 +18,7 @@ public class LadderGameExhaustive {
      * Indicate if no word ladder through the dictionary can be found.
      * Throw an error if start and end are different lengths or if either are not in the dictionary.
      * */
+    @Override
     public void play(String start, String end) throws IllegalArgumentException {
 
         // Create a fresh copy of the dictionary to search through and modify
